@@ -7,6 +7,8 @@ console.log('router : loaded');
 
 
 router.get('/', homeController.home);
+router.use('/users', require('./users'));
+// router.use('/admin', require('./admin'));     ====> task
 
 
 module.exports = router;
