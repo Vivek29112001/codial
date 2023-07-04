@@ -6,4 +6,5 @@ body {
 body #layout-main {
     height: 100%;
     overflow: auto;
+    background-color: rgba(127, 249, 255, 0.999);
 }

@@ -11,12 +11,15 @@ const passport = require('passport');
 const passportLocal = require("./config/passport-local");
 // var bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo')(session);
-const sassMiddleware = require('express-dart-sass');
+// const sassMiddleware = require('express-dart-sass');
+const sassMiddleware = require('express-dart-sass')
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 
 app.use(sassMiddleware({
-    src:'./assets/scss',
-    dest: './assets/scss',
+    src:'../assets/scss',
+    dest: '../assets/scss',
     debug: true,
     outputStyle: 'extended',
     prefix:'/css'
@@ -65,6 +68,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+
+app.use(flash());
+app.use(customMware.setFlash);
+
 // use express router
 app.use('/', require('./routes/index'));
 
