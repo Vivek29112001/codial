@@ -2,15 +2,31 @@
 <header id="nav">
     <div class="left-div">
         <a href="/">
-          <img
-            class="img img-rounded"
-            src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
-            alt="logo"
-          />
+            <img class="img-img-rounded" src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png" alt="logo" />
         </a>
-      </div>
+    </div>
+    <input class="center-div" type="text" placeholder="Search..">
+
+
+
     <ul>
+
         <% if (locals.user ){%>
+            <a href="/users/profile?id=>%= locals.user._id %>">
+                <% if(locals.user.avatar == undefined){ %>
+                    <img 
+                        class="rounded-circle" id="user-dp"
+                        src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                        alt="logo"
+                    />
+                    <%} else{%>
+                    <img 
+                    class="rounded-circle" id="user-dp"
+                    src="<%= locals.user.avatar %>"
+                    alt="logo"
+                    />
+                    <% } %>
+            </a>
             <li>
                 <a href="/users/profile">
                     <%= user.name %>
@@ -20,15 +36,15 @@
                 <a href="/users/signout">Sign Out</a>
             </li>
 
-        <% }else {%>
+            <% }else {%>
 
-            <li>
-                <a href="/users/sign-in">SignIn</a>
-            </li>
-            <li>
-                <a href="/users/sign-up">SignUp</a>
-            </li>
+                <li>
+                    <a href="/users/sign-in">SignIn</a>
+                </li>
+                <li>
+                    <a href="/users/sign-up">SignUp</a>
+                </li>
 
-            <% }%>
+                <% }%>
     </ul>
 </header>

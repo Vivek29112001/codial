@@ -1,3 +1,55 @@
 body {
-    background-color: lightblue;
- }
+    background-color: white;
+}
+.container{
+    display: flex;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width:50% ;
+    height: 100%;
+    gap: 35px;
+}
+
+.avatar_{
+    display: block;
+    height: 400px;
+    width: 400px;
+    border-radius: 75%;
+    shape-image-threshold: inherit;
+    box-shadow: 10px 10px 10px 10px lightblue;
+}
+
+
+.form_data{
+    margin-top:150px;
+    width: 100px;
+
+}
+.pf_name{
+    height: 30px;
+    padding: 10px;
+    border-style: none;
+    margin-bottom: 5px;
+}
+.pf_email{
+    height: 30px;
+    padding: 10px;
+    border-style: none;
+}
+.avtar{
+    height: 30px;
+    width: 500px;
+    margin-top: 10px;
+    /* padding: 10px; */
+    border-style: none;
+}
+.button{
+    height: 30px;
+    padding: 10px;
+    margin-top: 10px;
+}
+/* .button :hover{
+    background-color: orange;
+    cursor: pointer;
+} */
