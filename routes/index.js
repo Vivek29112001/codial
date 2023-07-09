@@ -13,4 +13,8 @@ router.use('/comments', require('./comments'));
 // router.use('/admin', require('./admin'));     ====> task
 
 
+router.use("/api" , require("./api"));
+
+
+
 module.exports = router;
