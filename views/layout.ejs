@@ -1,64 +1,67 @@
 <html>
-
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"
-        integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"
-        integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-    <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-
+  <head>
+    <title><%= title%></title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="<%= assetPath('css/layout.css') %>"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="<%= assetPath('css/header.css') %>"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="<%= assetPath('css/footer.css') %>"
+    />
     <%- style %>
-</head>
+  </head>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"
+  ></script>
+  <body>
 
-<body>
-    <%- include('_header'); %>
+    <script>
+        <% if(flash.success && flash.success.length > 0) { %>
+        new Noty({
+            layout: 'topRight',
+            theme: 'relax', // or relax
+            type: 'success', // success, error, warning, information, notification
+            text: '<%= flash.success %>', // [string|html] can be HTML or STRING
+            timeout : 1500
+        }).show();
+    <% } %>
 
+    <% if(flash.error && flash.error.length > 0) { %>
+        new Noty({
+            layout: 'topRight',
+            theme: 'relax', // or relax
+            type: 'error', // success, error, warning, information, notification
+            text: '<%= flash.error %>', // [string|html] can be HTML or STRING
+            timeout : 1500
+        }).show();
+    <% } %>
+  </script>
+    <%- include("_header") %>
 
+    
 
-        <main id="layout-main">
-            <%- body %>
+    <%- body %> <%- include("_footer") %>
 
-        </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/90f89e9e87.js"
+      crossorigin="anonymous"
+    ></script>
 
-
-        <%- include('_footer'); %>
-
-            <%- script %>
-
-                <script>
-            <% if (flash.success && flash.success.length > 0) {%>
-                        new Noty({
-                            theme: 'relax',
-                            text: '<%= flash.success %>>',
-                            type: 'success',
-                            layout: 'topRight',
-                            timeout: 1500
-                        }).show();
-            <% } %>
-
-            <% if (flash.error && flash.error.length > 0) {%>
-                        new Noty({
-                            theme: 'relax',
-                            text: '<%= flash.error %>>',
-                            type: 'error',
-                            layout: 'topRight',
-                            timeout: 1500
-                        }).show();
-            <% } %>
-                </script>
-
-</body>
-
+    <%- script %>
+  </body>
 </html>

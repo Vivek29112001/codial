@@ -1,16 +1,22 @@
-const mongoose = require('mongoose');
+//First set alias for mongodb in system variables else if not done then write full path where mongodb is present
 
-mongoose.connect('mongodb://127.0.0.1:27017/codial_develpoment');
-// localhost:27017 is not working in node version 18 so use localhost address in place of it that is 127.0.0.1
+//1)Getting mongoose package
+const mongoose = require("mongoose");
 
+const env = require("./environment");
+
+//2)Connecting to Mongodb database
+mongoose.connect(`mongodb://127.0.0.1:27017/${env.db}`);
+
+//3)Acquiring the connection
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, "error connecting to MongoDB"));
+//If connection fails
+db.on("error" , console.error.bind(console , "Error Connecting to Database"));
 
-
-db.once('open',function(){
-    console.log('Connected to Database :: MongoDB');
+//If successfully connected
+db.once("open" , function(){
+    console.log("Successfully connected to Database");
 });
-
 
 module.exports = db;

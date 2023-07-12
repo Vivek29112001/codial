@@ -1,42 +1,83 @@
-const Post = require('../models/post');
-const User = require('../models/user');
+const Posts = require("../models/posts");
+const User = require("../models/users");
+const passport = require("../config/passport-local-strategy");
+const Friendships = require("../models/friendships");
 
-module.exports.home = async function (req, res) {
-    // console.log(req.cookies);
-    // res.cookie('user_id', 25)
+// module.exports.home = function(request , response){
+//     // console.log(request.cookies);
+//     // response.cookie("user_id" , 19);
+//     Posts.find({}).populate("user").populate({
+//         path : "comments",
+//         populate : {
+//             path : "user"
+//         }
+//     }).exec(function(error , posts){
 
-    // Post.find({}, function (err, posts) {
-    //     return res.render('home', {
-    //         title: "Codieal | HOme",
-    //         posts: posts
-    //     })
-    // });
+//         User.find({} , function(error , users){
+//             if(error){
+//                 console.log("error in finding posts");
+//                 return;
+//             }
+//             return response.render("home" , {
+//                 title:"Codeial | Home",
+//                 posts : posts,
+//                 all_users : users
+//             });
+//         })
 
-    try {
-        // populate the user
-        let posts = await Post.find({})
-            .sort('-createdAt')
-            .populate('user')
-            .populate({
-                path: 'comments',
-                populate: {
-                    path: 'user'
-                }
-            });
-        //    .exec(function(err, posts){
+//      } )
+//     }
 
-        let users = await User.find({});
+//Writing Neater Code using ASYNC AWAIT
 
-        return res.render('home', {
-            title: "Codial | Home",
-            posts: posts,
-            all_users: users
+module.exports.home = async function (request, response) {
+  try {
+    let posts = await Posts.find({})
+      .sort("-createdAt")
+      .populate("user")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "likes",
+        },
+      })
+      .populate("likes");
+
+  
+    let users = await User.find({});
+
+    let user;
+    if (request.user) {
+      user = await User.findById(request.user._id)
+        .populate({
+          path: "friends",
+          populate: {
+            path: "from_user",
+          },
+        })
+        .populate({
+          path: "friends",
+          populate: {
+            path: "to_user",
+          },
         });
-    } catch (err) {
-        console.log('Error', err);
-        return;
     }
 
-}
+    
 
-// module.exports.actionName = function(req,res){}
+    return response.render("home", {
+      title: "Codeial | Home",
+      posts: posts,
+      all_users: users,
+      user: user,
+    });
+  } catch (error) {
+    console.log("Error : ", error);
+  }
+};
